@@ -124,11 +124,16 @@ MONGODB_URI=mongodb://localhost:27017/greenimpact
 REACT_APP_API_URL=http://localhost:5000/api
 ```
 
-## 🔑 Akun Demo
+## 🌐 Live Demo
 
+**🚀 Aplikasi Live**: [https://green-impact.vercel.app](https://green-impact.vercel.app)
+
+### 🔑 Akun Demo
 - **Admin**: `admin@greenimpact.com` / `admin123`
 - **User**: `user@greenimpact.com` / `user123`
 - **Demo**: `demo@example.com` / `123456`
+
+*Gunakan akun demo untuk mengeksplorasi fitur platform tanpa registrasi.*
 
 ## 🤖 Penjelasan Dukungan AI
 
@@ -211,15 +216,51 @@ GreenImpact-fullstack/
 
 ## 🚀 Deployment
 
-### Deployment Frontend (Netlify/Vercel)
-1. Build proyek: `npm run build`
-2. Deploy folder `build`
-3. Set environment variables di platform deployment
+### 🌐 Production URLs
+- **Frontend**: [https://green-impact.vercel.app](https://green-impact.vercel.app)
+- **Backend API**: [https://greenimpact-api-production.up.railway.app](https://greenimpact-api-production.up.railway.app)
+- **Database**: MongoDB Atlas (Cloud)
 
-### Deployment Backend (Heroku/Railway)
-1. Setup environment variables
-2. Konfigurasi start script
-3. Deploy dengan Git integration
+### 📋 Arsitektur Deployment
+- **Frontend**: Vercel (Static hosting dengan CDN global)
+- **Backend**: Railway (Container deployment dengan auto-scaling)
+- **Database**: MongoDB Atlas (Managed database service)
+
+### 🔧 Frontend Deployment (Vercel)
+```bash
+# 1. Push ke GitHub
+git add .
+git commit -m "Frontend deployment"
+git push origin main
+
+# 2. Vercel Dashboard
+# - Import dari GitHub
+# - Framework: Create React App
+# - Environment Variables:
+#   REACT_APP_API_URL=https://greenimpact-api-production.up.railway.app/api
+```
+
+### 🖥️ Backend Deployment (Railway)
+```bash
+# 1. Push ke GitHub
+git add .
+git commit -m "Backend deployment"
+git push origin main
+
+# 2. Railway Dashboard
+# - Deploy dari GitHub
+# - Environment Variables:
+#   MONGODB_URI=mongodb+srv://...
+#   JWT_SECRET=greenimpact-secret-key-2024
+#   FRONTEND_URL=https://green-impact.vercel.app
+#   NODE_ENV=production
+```
+
+### 🗄️ Database Setup (MongoDB Atlas)
+1. Create free cluster di mongodb.com/atlas
+2. Setup database user dan network access
+3. Get connection string untuk MONGODB_URI
+4. Database akan auto-seed saat pertama kali dijalankan
 
 ## 📄 Lisensi
 

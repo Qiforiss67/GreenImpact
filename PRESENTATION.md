@@ -8,6 +8,8 @@
 ### Platform Aktivitas SDG
 *Memberdayakan individu untuk membuat dampak positif terhadap lingkungan dan sosial*
 
+**🌐 Live Demo**: [https://green-impact.vercel.app](https://green-impact.vercel.app)
+
 ---
 
 ## Slide 2: Gambaran Proyek
@@ -145,9 +147,10 @@ Proyek ini dikembangkan dengan bantuan AI yang komprehensif, mendemonstrasikan w
 
 ### Implementasi Teknis
 - ✅ **Arsitektur Full-Stack** - React + Node.js + MongoDB dengan Mongoose ODM
-- ✅ **Database Terintegrasi** - MongoDB dengan data persistence dan seeding scripts
+- ✅ **Database Terintegrasi** - MongoDB Atlas dengan data persistence dan seeding scripts
 - ✅ **Praktik Keamanan Terbaik** - JWT authentication, password hashing, input validation
 - ✅ **UI/UX Fully Responsive** - Mobile-first design dengan hamburger menu dan breakpoints
+- ✅ **Production Deployment** - Vercel (Frontend) + Railway (Backend) + MongoDB Atlas
 - ✅ **Manajemen State** - Context API dengan useReducer untuk complex state handling
 
 ### Kelengkapan Fitur
@@ -155,6 +158,7 @@ Proyek ini dikembangkan dengan bantuan AI yang komprehensif, mendemonstrasikan w
 - ✅ **Operasi CRUD** - Manajemen data lengkap dengan MongoDB persistence
 - ✅ **Progress Tracking** - Real-time progress dengan achievement system
 - ✅ **Responsive Design** - Optimal di semua device dengan mobile-first approach
+- ✅ **Live Production App** - Deployed dan accessible secara global
 - ✅ **Enhanced UX** - Professional footer, improved cards, responsive modals
 
 ### Kualitas Pengembangan
@@ -185,15 +189,20 @@ Proyek ini dikembangkan dengan bantuan AI yang komprehensif, mendemonstrasikan w
 
 ### Dampak Proyek
 - **Nilai Edukasi** - Kesadaran dan keterlibatan SDG
-- **Keunggulan Teknis** - Praktik pengembangan modern
+- **Keunggulan Teknis** - Praktik pengembangan modern dengan deployment production
 - **Integrasi AI** - Mendemonstrasikan pengembangan berbantuan AI
 - **Pembangunan Komunitas** - Platform untuk aksi lingkungan
+- **Aksesibilitas Global** - Aplikasi live yang dapat diakses siapa saja
 
 ### Hasil Pembelajaran
-- Profisiensi pengembangan full-stack
+- Profisiensi pengembangan full-stack dengan deployment
 - Pola React modern dan manajemen state
 - Implementasi keamanan dan praktik terbaik
 - Workflow pengembangan berbantuan AI
+- Experience deployment ke production environment
+
+### 🌐 Live Demo
+**[https://green-impact.vercel.app](https://green-impact.vercel.app)**
 
 ### Terima Kasih
 **Pertanyaan & Diskusi**
