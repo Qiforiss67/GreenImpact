@@ -106,9 +106,9 @@ const AdminDashboard = () => {
       <div className="max-w-6xl mx-auto px-4 sm:px-8 py-8 sm:py-12">
         {/* Admin Stats Cards */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8 sm:mb-12">
-          <div className="bg-gradient-to-br from-blue-500 to-blue-600 text-white p-4 sm:p-6 rounded-2xl shadow-xl text-center">
-            <div className="text-2xl sm:text-3xl font-bold mb-2">{stats.totalUsers}</div>
-            <div className="text-xs sm:text-sm opacity-90">Registered Users</div>
+          <div className="bg-gradient-to-br from-blue-500 to-blue-600 text-white p-6 sm:p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 text-center transform hover:scale-105">
+            <div className="text-2xl sm:text-3xl font-bold mb-3">{stats.totalUsers}</div>
+            <div className="text-xs sm:text-sm opacity-90 font-medium">Registered Users</div>
           </div>
           <div className="bg-gradient-to-br from-green-500 to-green-600 text-white p-6 rounded-2xl shadow-xl text-center">
             <div className="text-3xl font-bold mb-2">{stats.totalActivities}</div>
@@ -267,20 +267,20 @@ const AdminDashboard = () => {
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {activities.map(activity => (
-              <div key={activity._id || activity.id} className="border border-gray-200 p-4 sm:p-6 rounded-lg hover:shadow-md transition-shadow">
-                <div className="flex justify-between items-start mb-4">
-                  <h3 className="font-semibold text-gray-800">{activity.title}</h3>
-                  <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">
-                    SDG {activity.sdg}
-                  </span>
-                </div>
-                <p className="text-gray-600 text-sm mb-4">{activity.description}</p>
-                <div className="flex justify-between items-center mb-4">
-                  <div className="flex gap-2 text-xs">
-                    <span className="bg-gray-100 px-2 py-1 rounded">{activity.category}</span>
-                    <span className="bg-gray-100 px-2 py-1 rounded">{activity.difficulty}</span>
-                    <span className="bg-yellow-100 text-yellow-800 px-2 py-1 rounded">⭐ {activity.points}</span>
+              <div key={activity._id || activity.id} className="bg-white border border-gray-200 p-6 sm:p-8 rounded-2xl hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border-l-4 border-l-blue-500">
+                <div className="grid grid-cols-3 gap-4 items-start mb-6">
+                  <h3 className="col-span-2 font-bold text-gray-800 text-base sm:text-lg leading-tight">{activity.title}</h3>
+                  <div className="col-span-1 flex justify-end">
+                    <span className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-2 sm:px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap">
+                      SDG {activity.sdg}
+                    </span>
                   </div>
+                </div>
+                <p className="text-gray-600 text-sm mb-6 leading-relaxed">{activity.description}</p>
+                <div className="flex flex-wrap gap-2 mb-6">
+                  <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs font-medium">{activity.category}</span>
+                  <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs font-medium">{activity.difficulty}</span>
+                  <span className="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-xs font-bold">⭐ {activity.points}</span>
                 </div>
                 <div className="flex flex-col sm:flex-row gap-2">
                   <button

@@ -82,18 +82,18 @@ const Activities = () => {
 
       <div className="max-w-6xl mx-auto px-4 sm:px-8 py-8 sm:py-12">
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          <div className="bg-white p-6 rounded-2xl shadow-lg text-center">
-            <div className="text-3xl font-bold text-primary mb-2">{activities.length}</div>
-            <div className="text-gray-600">Available Activities</div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-12">
+          <div className="bg-white p-6 sm:p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 text-center border border-gray-100">
+            <div className="text-2xl sm:text-3xl font-bold text-primary mb-3">{activities.length}</div>
+            <div className="text-sm sm:text-base text-gray-600 font-medium">Available Activities</div>
           </div>
-          <div className="bg-white p-6 rounded-2xl shadow-lg text-center">
-            <div className="text-3xl font-bold text-green-600 mb-2">{state.userProgress.completedActivities.length}</div>
-            <div className="text-gray-600">Completed</div>
+          <div className="bg-white p-6 sm:p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 text-center border border-gray-100">
+            <div className="text-2xl sm:text-3xl font-bold text-green-600 mb-3">{state.userProgress.completedActivities.length}</div>
+            <div className="text-sm sm:text-base text-gray-600 font-medium">Completed</div>
           </div>
-          <div className="bg-white p-6 rounded-2xl shadow-lg text-center">
-            <div className="text-3xl font-bold text-yellow-600 mb-2">{state.userProgress.points}</div>
-            <div className="text-gray-600">Points Earned</div>
+          <div className="bg-white p-6 sm:p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 text-center border border-gray-100">
+            <div className="text-2xl sm:text-3xl font-bold text-yellow-600 mb-3">{state.userProgress.points}</div>
+            <div className="text-sm sm:text-base text-gray-600 font-medium">Points Earned</div>
           </div>
         </div>
 
@@ -138,13 +138,13 @@ const Activities = () => {
                 }`}
                 style={{animationDelay: `${index * 0.1}s`}}
               >
-                <div className="flex justify-between items-start mb-4 sm:mb-6">
-                  <h3 className="text-lg sm:text-xl font-bold text-gray-800 pr-2">{activity.title}</h3>
-                  <div className="flex flex-col items-end gap-2">
-                    <span className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                <div className="grid grid-cols-3 gap-4 items-start mb-4 sm:mb-6">
+                  <h3 className="col-span-2 text-lg sm:text-xl font-bold text-gray-800 leading-tight">{activity.title}</h3>
+                  <div className="col-span-1 flex flex-col items-end gap-2">
+                    <span className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap">
                       SDG {activity.sdg}
                     </span>
-                    {completed && <span className="text-green-500 text-2xl">✓</span>}
+                    {completed && <span className="text-green-500 text-xl sm:text-2xl">✓</span>}
                   </div>
                 </div>
                 

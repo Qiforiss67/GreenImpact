@@ -70,6 +70,7 @@ GreenImpact adalah platform interaktif yang memungkinkan pengguna untuk menemuka
 ### Prasyarat
 - Node.js (v14 atau lebih tinggi)
 - npm atau yarn package manager
+- MongoDB (Instalasi lokal atau MongoDB Atlas)
 - Git
 
 ### 1. Clone Repository
@@ -78,15 +79,25 @@ git clone <repository-url>
 cd GreenImpact-fullstack
 ```
 
-### 2. Setup Backend
+### 2. Setup Database
+**Opsi A: MongoDB Lokal**
+- Install MongoDB Community Server
+- Start MongoDB service
+
+**Opsi B: MongoDB Atlas (Direkomendasikan)**
+- Buat akun gratis di mongodb.com/atlas
+- Buat cluster dan dapatkan connection string
+
+### 3. Setup Backend
 ```bash
 cd backend
 npm install
-npm run dev
+npm run seed    # Inisialisasi database dengan sample data
+npm run dev     # Start development server
 ```
 Backend akan berjalan di `http://localhost:5000`
 
-### 3. Setup Frontend
+### 4. Setup Frontend
 ```bash
 cd frontend
 npm install
@@ -94,15 +105,18 @@ npm start
 ```
 Frontend akan berjalan di `http://localhost:3000`
 
-### 4. Environment Variables
+### 5. Environment Variables
 Buat file `.env` di direktori frontend dan backend:
 
 **Backend (.env):**
 ```
 PORT=5000
-JWT_SECRET=your-secret-key
+JWT_SECRET=greenimpact-secret-key-2024
 FRONTEND_URL=http://localhost:3000
 NODE_ENV=development
+MONGODB_URI=mongodb://localhost:27017/greenimpact
+# Atau untuk MongoDB Atlas:
+# MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/greenimpact
 ```
 
 **Frontend (.env):**
@@ -133,15 +147,19 @@ Proyek ini dikembangkan dengan bantuan AI yang komprehensif menggunakan IBM Gran
 - **Desain API** - Struktur RESTful API dengan HTTP methods dan status codes yang tepat
 
 ### 🎨 Peningkatan UI/UX
-- **Pola Desain Modern** - Efek glassmorphism, gradient backgrounds, dan layout responsif
-- **Arsitektur Komponen** - Struktur komponen React yang dapat digunakan ulang dan mudah dipelihara
-- **Pengalaman Pengguna** - Navigasi intuitif, elemen interaktif, dan fitur aksesibilitas
-- **Sistem Desain** - Styling konsisten dengan utility classes Tailwind CSS
+- **Desain Fully Responsive** - Pendekatan mobile-first dengan hamburger navigation
+- **UI/UX Modern** - Efek glassmorphism, gradient backgrounds, dan animasi smooth
+- **Elemen Interaktif** - Hover effects, scale transforms, dan micro-interactions
+- **Modal Responsif** - Dialog konfirmasi dengan layout mobile yang proper
+- **Card Design Enhanced** - Spacing, padding, dan grid layout yang lebih baik
+- **Footer Professional** - Newsletter signup, social links, dan featured SDGs
 
 ### 🔧 Alur Kerja Pengembangan
 - **Struktur Proyek** - Hierarki file terorganisir dengan pemisahan concern yang jelas
+- **Integrasi Database** - MongoDB dengan Mongoose ODM untuk persistensi data
 - **Penanganan Error** - Manajemen error komprehensif dengan feedback yang user-friendly
-- **Strategi Testing** - Implementasi mock data dan setup environment pengembangan
+- **Pengembangan Responsif** - Pendekatan mobile-first dengan Tailwind CSS breakpoints
+- **Arsitektur Komponen** - Komponen reusable dengan spacing dan design yang konsisten
 - **Dokumentasi** - README detail, komentar kode, dan dokumentasi API
 
 ### 🧠 Kemampuan IBM Granite Model
