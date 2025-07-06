@@ -94,3 +94,6 @@ Thumbs.db
 # Temporary files
 *.tmp
 *.temp
+
+# Presentation files
+PRESENTATION.md
