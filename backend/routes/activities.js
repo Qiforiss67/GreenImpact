@@ -1,46 +1,43 @@
 const express = require('express');
 const { body, validationResult } = require('express-validator');
 const auth = require('../middleware/auth');
+const Activity = require('../models/Activity');
 const router = express.Router();
 
-// Mock activities database
-let activities = [
-  { id: 1, title: 'Plant a Tree', category: 'environment', difficulty: 'easy', points: 10, sdg: 13, description: 'Plant a tree in your community', userId: 1 },
-  { id: 2, title: 'Reduce Water Usage', category: 'environment', difficulty: 'medium', points: 15, sdg: 6, description: 'Track and reduce daily water consumption', userId: 1 },
-  { id: 3, title: 'Volunteer at Food Bank', category: 'social', difficulty: 'medium', points: 20, sdg: 2, description: 'Help distribute food to those in need', userId: 1 },
-  { id: 4, title: 'Use Renewable Energy', category: 'environment', difficulty: 'hard', points: 25, sdg: 7, description: 'Switch to solar or wind energy', userId: 1 },
-  { id: 5, title: 'Educate Others on SDGs', category: 'education', difficulty: 'easy', points: 12, sdg: 4, description: 'Share knowledge about sustainable development', userId: 1 }
-];
-
 // Get all activities
-router.get('/', (req, res) => {
-  const { category, difficulty } = req.query;
-  let filteredActivities = activities;
+router.get('/', async (req, res) => {
+  try {
+    const { category, difficulty } = req.query;
+    let filter = {};
 
-  if (category && category !== 'all') {
-    filteredActivities = filteredActivities.filter(a => a.category === category);
+    if (category && category !== 'all') {
+      filter.category = category;
+    }
+    
+    if (difficulty && difficulty !== 'all') {
+      filter.difficulty = difficulty;
+    }
+
+    const activities = await Activity.find(filter).populate('createdBy', 'email').sort({ createdAt: -1 });
+    res.json(activities);
+  } catch (error) {
+    console.error('Get activities error:', error);
+    res.status(500).json({ error: 'Server error' });
   }
-  
-  if (difficulty && difficulty !== 'all') {
-    filteredActivities = filteredActivities.filter(a => a.difficulty === difficulty);
-  }
-
-  res.json(filteredActivities);
-});
-
-// Get user's own activities (protected)
-router.get('/my-activities', auth, (req, res) => {
-  const userActivities = activities.filter(a => a.userId === req.user.userId);
-  res.json(userActivities);
 });
 
 // Get activity by ID
-router.get('/:id', (req, res) => {
-  const activity = activities.find(a => a.id === parseInt(req.params.id));
-  if (!activity) {
-    return res.status(404).json({ error: 'Activity not found' });
+router.get('/:id', async (req, res) => {
+  try {
+    const activity = await Activity.findById(req.params.id).populate('createdBy', 'email');
+    if (!activity) {
+      return res.status(404).json({ error: 'Activity not found' });
+    }
+    res.json(activity);
+  } catch (error) {
+    console.error('Get activity error:', error);
+    res.status(500).json({ error: 'Server error' });
   }
-  res.json(activity);
 });
 
 // Create activity (protected)
@@ -51,20 +48,26 @@ router.post('/', auth, [
   body('points').isInt({ min: 1 }),
   body('sdg').isInt({ min: 1, max: 17 }),
   body('description').notEmpty().trim()
-], (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
+], async (req, res) => {
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const newActivity = new Activity({
+      ...req.body,
+      createdBy: req.user.userId
+    });
+
+    await newActivity.save();
+    await newActivity.populate('createdBy', 'email');
+    
+    res.status(201).json(newActivity);
+  } catch (error) {
+    console.error('Create activity error:', error);
+    res.status(500).json({ error: 'Server error' });
   }
-
-  const newActivity = {
-    id: activities.length + 1,
-    ...req.body,
-    userId: req.user.userId
-  };
-
-  activities.push(newActivity);
-  res.status(201).json(newActivity);
 });
 
 // Update activity (protected)
@@ -75,30 +78,42 @@ router.put('/:id', auth, [
   body('points').optional().isInt({ min: 1 }),
   body('sdg').optional().isInt({ min: 1, max: 17 }),
   body('description').optional().notEmpty().trim()
-], (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
+], async (req, res) => {
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
 
-  const activityIndex = activities.findIndex(a => a.id === parseInt(req.params.id));
-  if (activityIndex === -1) {
-    return res.status(404).json({ error: 'Activity not found' });
-  }
+    const activity = await Activity.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true, runValidators: true }
+    ).populate('createdBy', 'email');
 
-  activities[activityIndex] = { ...activities[activityIndex], ...req.body };
-  res.json(activities[activityIndex]);
+    if (!activity) {
+      return res.status(404).json({ error: 'Activity not found' });
+    }
+
+    res.json(activity);
+  } catch (error) {
+    console.error('Update activity error:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
 });
 
 // Delete activity (protected)
-router.delete('/:id', auth, (req, res) => {
-  const activityIndex = activities.findIndex(a => a.id === parseInt(req.params.id));
-  if (activityIndex === -1) {
-    return res.status(404).json({ error: 'Activity not found' });
+router.delete('/:id', auth, async (req, res) => {
+  try {
+    const activity = await Activity.findByIdAndDelete(req.params.id);
+    if (!activity) {
+      return res.status(404).json({ error: 'Activity not found' });
+    }
+    res.json({ message: 'Activity deleted successfully' });
+  } catch (error) {
+    console.error('Delete activity error:', error);
+    res.status(500).json({ error: 'Server error' });
   }
-
-  const deletedActivity = activities.splice(activityIndex, 1)[0];
-  res.json(deletedActivity);
 });
 
 module.exports = router;

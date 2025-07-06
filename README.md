@@ -1,75 +1,75 @@
-# 🌱 GreenImpact - SDG Activities Platform
+# 🌱 GreenImpact - Platform Aktivitas SDG
 
-A comprehensive full-stack web application for tracking and promoting Sustainable Development Goals (SDG) activities, empowering individuals to make a positive environmental and social impact.
+Aplikasi web full-stack yang komprehensif untuk melacak dan mempromosikan aktivitas Sustainable Development Goals (SDG), memberdayakan individu untuk membuat dampak positif terhadap lingkungan dan sosial.
 
-## 📖 Description
+## 📖 Deskripsi
 
-GreenImpact is an interactive platform that enables users to discover, participate in, and track their contributions to the UN's 17 Sustainable Development Goals. The platform features role-based access control, real-time progress tracking, community engagement, and comprehensive activity management.
+GreenImpact adalah platform interaktif yang memungkinkan pengguna untuk menemukan, berpartisipasi, dan melacak kontribusi mereka terhadap 17 Tujuan Pembangunan Berkelanjutan PBB. Platform ini menampilkan kontrol akses berbasis peran, pelacakan progres real-time, keterlibatan komunitas, dan manajemen aktivitas yang komprehensif.
 
-## 🔧 Technologies Used
+## 🔧 Teknologi yang Digunakan
 
 ### Frontend
-- **React 18** - Modern JavaScript library for building user interfaces
-- **Tailwind CSS** - Utility-first CSS framework for rapid UI development
-- **React Router v6** - Declarative routing for React applications
-- **Context API + useReducer** - State management solution
-- **Axios** - HTTP client for API communication
+- **React 18** - Library JavaScript modern untuk membangun user interface
+- **Tailwind CSS** - Framework CSS utility-first untuk pengembangan UI yang cepat
+- **React Router v6** - Routing deklaratif untuk aplikasi React
+- **Context API + useReducer** - Solusi manajemen state
+- **Axios** - HTTP client untuk komunikasi API
 
 ### Backend
-- **Node.js** - JavaScript runtime environment
-- **Express.js** - Fast, unopinionated web framework
-- **JWT (JSON Web Tokens)** - Secure authentication mechanism
-- **bcryptjs** - Password hashing library
-- **Express Validator** - Input validation and sanitization
-- **Helmet** - Security middleware
+- **Node.js** - Runtime environment JavaScript
+- **Express.js** - Framework web yang cepat dan tidak berpendapat
+- **JWT (JSON Web Tokens)** - Mekanisme autentikasi yang aman
+- **bcryptjs** - Library hashing password
+- **Express Validator** - Validasi dan sanitasi input
+- **Helmet** - Middleware keamanan
 - **CORS** - Cross-origin resource sharing
 
-### Development Tools
-- **Nodemon** - Development server with auto-restart
-- **ESLint** - Code linting and formatting
-- **Git** - Version control system
+### Tools Pengembangan
+- **Nodemon** - Development server dengan auto-restart
+- **ESLint** - Code linting dan formatting
+- **Git** - Sistem version control
 
-## ✨ Features
+## ✨ Fitur
 
-### 🔐 Authentication & Authorization
-- Secure user registration and login
-- Role-based access control (Admin/User)
-- JWT token-based authentication
-- Password encryption with bcrypt
+### 🔐 Autentikasi & Otorisasi
+- Registrasi dan login pengguna yang aman
+- Kontrol akses berbasis peran (Admin/User)
+- Autentikasi berbasis token JWT
+- Enkripsi password dengan bcrypt
 
-### 👥 User Management
-- **Admin Dashboard** - Complete platform management
-- **User Progress Tracking** - Personal SDG journey
-- **Role-based Navigation** - Different interfaces per user type
+### 👥 Manajemen Pengguna
+- **Dashboard Admin** - Manajemen platform lengkap
+- **Pelacakan Progres Pengguna** - Perjalanan SDG personal
+- **Navigasi Berbasis Peran** - Interface berbeda per tipe pengguna
 
-### 🎯 Activity Management
-- **CRUD Operations** - Create, read, update, delete activities
-- **SDG Categorization** - Activities mapped to 17 SDG goals
-- **Difficulty Levels** - Easy, Medium, Hard classifications
-- **Points System** - Gamified engagement
+### 🎯 Manajemen Aktivitas
+- **Operasi CRUD** - Create, read, update, delete aktivitas
+- **Kategorisasi SDG** - Aktivitas dipetakan ke 17 tujuan SDG
+- **Level Kesulitan** - Klasifikasi Easy, Medium, Hard
+- **Sistem Poin** - Keterlibatan yang gamified
 
-### 📊 Progress & Analytics
-- **Personal Dashboard** - Individual progress tracking
-- **Achievement System** - Milestone recognition
-- **Leaderboard** - Community engagement
-- **Impact Visualization** - SDG contribution metrics
+### 📊 Progres & Analitik
+- **Dashboard Personal** - Pelacakan progres individual
+- **Sistem Achievement** - Pengakuan milestone
+- **Leaderboard** - Keterlibatan komunitas
+- **Visualisasi Dampak** - Metrik kontribusi SDG
 
-### 🌐 Community Features
-- **Global Statistics** - Platform-wide impact metrics
-- **User Rankings** - Competitive engagement
-- **Achievement Badges** - Recognition system
+### 🌐 Fitur Komunitas
+- **Statistik Global** - Metrik dampak platform-wide
+- **Ranking Pengguna** - Keterlibatan kompetitif
+- **Badge Achievement** - Sistem pengakuan
 
-### 🎨 User Experience
-- **Responsive Design** - Mobile-first approach
-- **Modern UI/UX** - Glassmorphism and gradient designs
-- **Interactive Elements** - Hover effects and animations
-- **Confirmation Modals** - User-friendly action confirmations
+### 🎨 Pengalaman Pengguna
+- **Desain Responsif** - Pendekatan mobile-first
+- **UI/UX Modern** - Desain glassmorphism dan gradient
+- **Elemen Interaktif** - Efek hover dan animasi
+- **Modal Konfirmasi** - Konfirmasi aksi yang user-friendly
 
-## 🚀 Setup Instructions
+## 🚀 Instruksi Setup
 
-### Prerequisites
-- Node.js (v14 or higher)
-- npm or yarn package manager
+### Prasyarat
+- Node.js (v14 atau lebih tinggi)
+- npm atau yarn package manager
 - Git
 
 ### 1. Clone Repository
@@ -78,24 +78,24 @@ git clone <repository-url>
 cd GreenImpact-fullstack
 ```
 
-### 2. Backend Setup
+### 2. Setup Backend
 ```bash
 cd backend
 npm install
 npm run dev
 ```
-Backend will run on `http://localhost:5000`
+Backend akan berjalan di `http://localhost:5000`
 
-### 3. Frontend Setup
+### 3. Setup Frontend
 ```bash
 cd frontend
 npm install
 npm start
 ```
-Frontend will run on `http://localhost:3000`
+Frontend akan berjalan di `http://localhost:3000`
 
 ### 4. Environment Variables
-Create `.env` files in both frontend and backend directories:
+Buat file `.env` di direktori frontend dan backend:
 
 **Backend (.env):**
 ```
@@ -110,111 +110,111 @@ NODE_ENV=development
 REACT_APP_API_URL=http://localhost:5000/api
 ```
 
-## 🔑 Demo Accounts
+## 🔑 Akun Demo
 
 - **Admin**: `admin@greenimpact.com` / `admin123`
 - **User**: `user@greenimpact.com` / `user123`
 - **Demo**: `demo@example.com` / `123456`
 
-## 🤖 AI Support Explanation
+## 🤖 Penjelasan Dukungan AI
 
-This project was developed with comprehensive AI assistance using IBM Granite Model, which provided:
+Proyek ini dikembangkan dengan bantuan AI yang komprehensif menggunakan IBM Granite Model, yang menyediakan:
 
-### 🛠️ Development Support
-- **Code Generation** - Automated React component creation and Express.js API development
-- **Architecture Design** - Full-stack application structure following industry best practices
-- **Problem Solving** - Real-time debugging assistance and error resolution strategies
-- **Code Optimization** - Performance improvements and maintainable code patterns
+### 🛠️ Dukungan Pengembangan
+- **Generasi Kode** - Pembuatan komponen React dan pengembangan API Express.js secara otomatis
+- **Desain Arsitektur** - Struktur aplikasi full-stack mengikuti praktik terbaik industri
+- **Pemecahan Masalah** - Bantuan debugging real-time dan strategi penyelesaian error
+- **Optimasi Kode** - Peningkatan performa dan pola kode yang dapat dipelihara
 
-### 📚 Technical Guidance
-- **Technology Selection** - Optimal tech stack recommendations for scalable web applications
-- **Security Implementation** - JWT authentication, bcrypt password hashing, and security middleware
-- **State Management** - Context API with useReducer pattern for complex state handling
-- **API Design** - RESTful API structure with proper HTTP methods and status codes
+### 📚 Panduan Teknis
+- **Pemilihan Teknologi** - Rekomendasi tech stack optimal untuk aplikasi web yang scalable
+- **Implementasi Keamanan** - Autentikasi JWT, hashing password bcrypt, dan middleware keamanan
+- **Manajemen State** - Context API dengan pola useReducer untuk penanganan state kompleks
+- **Desain API** - Struktur RESTful API dengan HTTP methods dan status codes yang tepat
 
-### 🎨 UI/UX Enhancement
-- **Modern Design Patterns** - Glassmorphism effects, gradient backgrounds, and responsive layouts
-- **Component Architecture** - Reusable and maintainable React component structure
-- **User Experience** - Intuitive navigation, interactive elements, and accessibility features
-- **Design Systems** - Consistent styling with Tailwind CSS utility classes
+### 🎨 Peningkatan UI/UX
+- **Pola Desain Modern** - Efek glassmorphism, gradient backgrounds, dan layout responsif
+- **Arsitektur Komponen** - Struktur komponen React yang dapat digunakan ulang dan mudah dipelihara
+- **Pengalaman Pengguna** - Navigasi intuitif, elemen interaktif, dan fitur aksesibilitas
+- **Sistem Desain** - Styling konsisten dengan utility classes Tailwind CSS
 
-### 🔧 Development Workflow
-- **Project Structure** - Organized file hierarchy with clear separation of concerns
-- **Error Handling** - Comprehensive error management with user-friendly feedback
-- **Testing Strategy** - Mock data implementation and development environment setup
-- **Documentation** - Detailed README, code comments, and API documentation
+### 🔧 Alur Kerja Pengembangan
+- **Struktur Proyek** - Hierarki file terorganisir dengan pemisahan concern yang jelas
+- **Penanganan Error** - Manajemen error komprehensif dengan feedback yang user-friendly
+- **Strategi Testing** - Implementasi mock data dan setup environment pengembangan
+- **Dokumentasi** - README detail, komentar kode, dan dokumentasi API
 
-### 🧠 IBM Granite Model Capabilities
-- **Code Understanding** - Deep comprehension of JavaScript, React, and Node.js ecosystems
-- **Best Practices** - Implementation of industry-standard development patterns
-- **Security Awareness** - Proactive security recommendations and vulnerability prevention
-- **Performance Optimization** - Efficient algorithms and resource management suggestions
+### 🧠 Kemampuan IBM Granite Model
+- **Pemahaman Kode** - Pemahaman mendalam terhadap ekosistem JavaScript, React, dan Node.js
+- **Praktik Terbaik** - Implementasi pola pengembangan standar industri
+- **Kesadaran Keamanan** - Rekomendasi keamanan proaktif dan pencegahan kerentanan
+- **Optimasi Performa** - Saran algoritma efisien dan manajemen resource
 
-The IBM Granite Model's advanced language understanding and code generation capabilities enabled rapid development while maintaining enterprise-grade code quality, security standards, and modern development practices throughout the entire project lifecycle.
+Kemampuan pemahaman bahasa tingkat lanjut dan generasi kode IBM Granite Model memungkinkan pengembangan yang cepat sambil mempertahankan kualitas kode enterprise-grade, standar keamanan, dan praktik pengembangan modern sepanjang siklus hidup proyek.
 
-## 📁 Project Structure
+## 📁 Struktur Proyek
 
 ```
 GreenImpact-fullstack/
-├── frontend/                 # React application
+├── frontend/                 # Aplikasi React
 │   ├── src/
-│   │   ├── components/      # Reusable UI components
-│   │   ├── pages/          # Route components
-│   │   ├── context/        # State management
-│   │   ├── utils/          # Utility functions
+│   │   ├── components/      # Komponen UI yang dapat digunakan ulang
+│   │   ├── pages/          # Komponen route
+│   │   ├── context/        # Manajemen state
+│   │   ├── utils/          # Fungsi utility
 │   │   └── hooks/          # Custom React hooks
-│   └── public/             # Static assets
-├── backend/                 # Express API server
-│   ├── routes/             # API route handlers
+│   └── public/             # Asset statis
+├── backend/                 # Server API Express
+│   ├── routes/             # Handler route API
 │   ├── middleware/         # Custom middleware
-│   └── models/             # Data models
-└── README.md               # Project documentation
+│   └── models/             # Model data
+└── README.md               # Dokumentasi proyek
 ```
 
-## 🌍 SDG Categories Supported
+## 🌍 Kategori SDG yang Didukung
 
-1. **No Poverty** - Economic empowerment activities
-2. **Zero Hunger** - Food security and nutrition
-3. **Good Health** - Healthcare and wellness
-4. **Quality Education** - Learning and skill development
-5. **Gender Equality** - Equal opportunities initiatives
-6. **Clean Water** - Water conservation and access
-7. **Clean Energy** - Renewable energy adoption
-8. **Decent Work** - Employment and economic growth
-9. **Innovation** - Technology and infrastructure
-10. **Reduced Inequalities** - Social inclusion
-11. **Sustainable Cities** - Urban development
-12. **Responsible Consumption** - Sustainable practices
-13. **Climate Action** - Environmental protection
-14. **Life Below Water** - Marine conservation
-15. **Life on Land** - Terrestrial ecosystem protection
-16. **Peace & Justice** - Strong institutions
-17. **Partnerships** - Global cooperation
+1. **Tanpa Kemiskinan** - Aktivitas pemberdayaan ekonomi
+2. **Tanpa Kelaparan** - Keamanan pangan dan nutrisi
+3. **Kesehatan yang Baik** - Kesehatan dan wellness
+4. **Pendidikan Berkualitas** - Pembelajaran dan pengembangan skill
+5. **Kesetaraan Gender** - Inisiatif kesempatan yang setara
+6. **Air Bersih** - Konservasi dan akses air
+7. **Energi Bersih** - Adopsi energi terbarukan
+8. **Pekerjaan Layak** - Ketenagakerjaan dan pertumbuhan ekonomi
+9. **Inovasi** - Teknologi dan infrastruktur
+10. **Mengurangi Ketimpangan** - Inklusi sosial
+11. **Kota Berkelanjutan** - Pembangunan perkotaan
+12. **Konsumsi Bertanggung Jawab** - Praktik berkelanjutan
+13. **Aksi Iklim** - Perlindungan lingkungan
+14. **Kehidupan di Bawah Air** - Konservasi laut
+15. **Kehidupan di Darat** - Perlindungan ekosistem terestrial
+16. **Perdamaian & Keadilan** - Institusi yang kuat
+17. **Kemitraan** - Kerjasama global
 
 ## 🚀 Deployment
 
-### Frontend Deployment (Netlify/Vercel)
-1. Build the project: `npm run build`
-2. Deploy the `build` folder
-3. Set environment variables in deployment platform
+### Deployment Frontend (Netlify/Vercel)
+1. Build proyek: `npm run build`
+2. Deploy folder `build`
+3. Set environment variables di platform deployment
 
-### Backend Deployment (Heroku/Railway)
-1. Set up environment variables
-2. Configure start script
-3. Deploy with Git integration
+### Deployment Backend (Heroku/Railway)
+1. Setup environment variables
+2. Konfigurasi start script
+3. Deploy dengan Git integration
 
-## 📄 License
+## 📄 Lisensi
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+Proyek ini dilisensikan di bawah MIT License - lihat file LICENSE untuk detail.
 
-## 🤝 Contributing
+## 🤝 Kontribusi
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Kontribusi sangat diterima! Silakan submit Pull Request.
 
-## 📞 Support
+## 📞 Dukungan
 
-For support and questions, please open an issue in the GitHub repository.
+Untuk dukungan dan pertanyaan, silakan buka issue di GitHub repository.
 
 ---
 
-**Made with 💚 for a sustainable future**
+**Dibuat dengan 💚 untuk masa depan yang berkelanjutan**
