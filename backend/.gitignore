@@ -1,13 +1,5 @@
 # Dependencies
 node_modules/
-/.pnp
-.pnp.js
-
-# Testing
-/coverage
-
-# Production build
-/build
 
 # Environment variables
 .env
@@ -20,12 +12,20 @@ node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+*.log
 
 # Runtime data
 pids
 *.pid
 *.seed
 *.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+
+# nyc test coverage
+.nyc_output
 
 # Optional npm cache directory
 .npm
@@ -42,30 +42,9 @@ pids
 # Yarn Integrity file
 .yarn-integrity
 
-# parcel-bundler cache (https://parceljs.org/)
+# parcel-bundler cache
 .cache
 .parcel-cache
-
-# next.js build output
-.next
-
-# nuxt.js build output
-.nuxt
-
-# vuepress build output
-.vuepress/dist
-
-# Serverless directories
-.serverless/
-
-# FuseBox cache
-.fusebox/
-
-# DynamoDB Local files
-.dynamodb/
-
-# TernJS port file
-.tern-port
 
 # IDE files
 .vscode/
@@ -87,9 +66,6 @@ Thumbs.db
 *.tmp
 *.temp
 
-# Storybook build outputs
-.out
-.storybook-out
-
-# Miscellaneous
-*.tsbuildinfo
+# Build directories
+build/
+dist/
