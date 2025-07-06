@@ -118,33 +118,39 @@ REACT_APP_API_URL=http://localhost:5000/api
 
 ## 🤖 AI Support Explanation
 
-This project was developed with comprehensive AI assistance using Amazon Q Developer, which provided:
+This project was developed with comprehensive AI assistance using IBM Granite Model, which provided:
 
 ### 🛠️ Development Support
-- **Code Generation** - Automated component creation and API endpoint development
-- **Architecture Design** - Full-stack application structure and best practices
-- **Problem Solving** - Real-time debugging and error resolution
-- **Code Optimization** - Performance improvements and clean code practices
+- **Code Generation** - Automated React component creation and Express.js API development
+- **Architecture Design** - Full-stack application structure following industry best practices
+- **Problem Solving** - Real-time debugging assistance and error resolution strategies
+- **Code Optimization** - Performance improvements and maintainable code patterns
 
 ### 📚 Technical Guidance
-- **Technology Selection** - Optimal tech stack recommendations
-- **Security Implementation** - JWT authentication, input validation, and security headers
-- **State Management** - Context API with useReducer pattern implementation
-- **API Design** - RESTful API structure and endpoint organization
+- **Technology Selection** - Optimal tech stack recommendations for scalable web applications
+- **Security Implementation** - JWT authentication, bcrypt password hashing, and security middleware
+- **State Management** - Context API with useReducer pattern for complex state handling
+- **API Design** - RESTful API structure with proper HTTP methods and status codes
 
 ### 🎨 UI/UX Enhancement
-- **Modern Design Patterns** - Glassmorphism, gradients, and responsive layouts
-- **Component Architecture** - Reusable and maintainable React components
-- **User Experience** - Intuitive navigation and interactive elements
-- **Accessibility** - WCAG-compliant design principles
+- **Modern Design Patterns** - Glassmorphism effects, gradient backgrounds, and responsive layouts
+- **Component Architecture** - Reusable and maintainable React component structure
+- **User Experience** - Intuitive navigation, interactive elements, and accessibility features
+- **Design Systems** - Consistent styling with Tailwind CSS utility classes
 
 ### 🔧 Development Workflow
-- **Project Structure** - Organized file hierarchy and separation of concerns
-- **Error Handling** - Comprehensive error management and user feedback
-- **Testing Strategy** - Mock data implementation for development
-- **Documentation** - Comprehensive README and code comments
+- **Project Structure** - Organized file hierarchy with clear separation of concerns
+- **Error Handling** - Comprehensive error management with user-friendly feedback
+- **Testing Strategy** - Mock data implementation and development environment setup
+- **Documentation** - Detailed README, code comments, and API documentation
 
-The AI assistance enabled rapid development while maintaining high code quality, security standards, and modern development practices throughout the entire project lifecycle.
+### 🧠 IBM Granite Model Capabilities
+- **Code Understanding** - Deep comprehension of JavaScript, React, and Node.js ecosystems
+- **Best Practices** - Implementation of industry-standard development patterns
+- **Security Awareness** - Proactive security recommendations and vulnerability prevention
+- **Performance Optimization** - Efficient algorithms and resource management suggestions
+
+The IBM Granite Model's advanced language understanding and code generation capabilities enabled rapid development while maintaining enterprise-grade code quality, security standards, and modern development practices throughout the entire project lifecycle.
 
 ## 📁 Project Structure
 
