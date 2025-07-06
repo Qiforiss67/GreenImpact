@@ -70,13 +70,21 @@ router.post('/complete/:activityId', auth, async (req, res) => {
 
     // Check achievements
     const newAchievements = [];
-    if (progress.completedActivities.length >= 5 && !progress.achievements.includes('first-five')) {
-      newAchievements.push('first-five');
-      progress.achievements.push('first-five');
+    if (progress.completedActivities.length >= 1 && !progress.achievements.includes('first-steps')) {
+      newAchievements.push('first-steps');
+      progress.achievements.push('first-steps');
     }
-    if (progress.points >= 50 && !progress.achievements.includes('point-master')) {
-      newAchievements.push('point-master');
-      progress.achievements.push('point-master');
+    if (progress.points >= 50 && !progress.achievements.includes('eco-warrior')) {
+      newAchievements.push('eco-warrior');
+      progress.achievements.push('eco-warrior');
+    }
+    if (progress.completedActivities.length >= 10 && !progress.achievements.includes('sdg-champion')) {
+      newAchievements.push('sdg-champion');
+      progress.achievements.push('sdg-champion');
+    }
+    if (progress.points >= 100 && !progress.achievements.includes('planet-protector')) {
+      newAchievements.push('planet-protector');
+      progress.achievements.push('planet-protector');
     }
 
     await progress.save();

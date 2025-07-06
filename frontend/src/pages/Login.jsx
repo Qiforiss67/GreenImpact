@@ -71,19 +71,19 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-50 px-8">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
-        <h2 className="text-2xl font-bold text-center mb-6 text-primary">
+    <div className="flex justify-center items-center min-h-screen bg-gray-50 px-4 sm:px-8">
+      <div className="bg-white p-4 sm:p-6 lg:p-8 rounded-lg shadow-lg w-full max-w-md">
+        <h2 className="text-xl sm:text-2xl font-bold text-center mb-4 sm:mb-6 text-primary">
           {isLogin ? 'Login' : 'Sign Up'}
         </h2>
         
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
           <input
             type="email"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+            className="w-full px-3 py-2 sm:py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary text-sm sm:text-base"
             required
           />
           <input
@@ -91,7 +91,7 @@ const Login = () => {
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+            className="w-full px-3 py-2 sm:py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary text-sm sm:text-base"
             required
           />
           
@@ -99,7 +99,7 @@ const Login = () => {
           
           <button 
             type="submit" 
-            className="w-full bg-primary text-white py-2 rounded-md hover:bg-secondary transition-colors"
+            className="w-full bg-primary text-white py-2 sm:py-3 rounded-md hover:bg-secondary transition-colors text-sm sm:text-base font-medium"
           >
             {isLogin ? 'Login' : 'Sign Up'}
           </button>
@@ -115,23 +115,25 @@ const Login = () => {
           </button>
         </p>
         
-        <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
-          <h3 className="text-sm font-semibold text-blue-800 mb-2">🔑 Demo Accounts</h3>
+        <div className="mt-4 sm:mt-6 p-3 sm:p-4 bg-blue-50 rounded-lg border border-blue-200">
+          <h3 className="text-xs sm:text-sm font-semibold text-blue-800 mb-2">🔑 Demo Accounts</h3>
           <div className="space-y-2 text-xs text-blue-700">
             {[
               { email: 'admin@greenimpact.com', password: 'admin123' },
               { email: 'user@greenimpact.com', password: 'user123' },
               { email: 'demo@example.com', password: '123456' }
             ].map((account, index) => (
-              <div key={index} className="flex justify-between items-center">
-                <span className="font-mono">{account.email}</span>
-                <span className="font-mono bg-blue-100 px-2 py-1 rounded">{account.password}</span>
+              <div key={index} className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 sm:gap-2 p-2 bg-white rounded border">
+                <div className="flex-1 min-w-0">
+                  <div className="font-mono text-xs truncate">{account.email}</div>
+                  <div className="font-mono text-xs text-gray-600">Pass: {account.password}</div>
+                </div>
                 <button
                   onClick={() => {
                     setEmail(account.email);
                     setPassword(account.password);
                   }}
-                  className="text-blue-600 hover:text-blue-800 underline"
+                  className="text-blue-600 hover:text-blue-800 underline text-xs font-medium self-start sm:self-auto"
                 >
                   Use
                 </button>

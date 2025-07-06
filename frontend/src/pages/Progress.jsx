@@ -1,8 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useApp } from '../context/AppContext';
+import apiService from '../utils/api';
 
 const Progress = () => {
-  const { state } = useApp();
+  const { state, actions } = useApp();
+
+  useEffect(() => {
+    loadUserProgress();
+  }, []);
+
+  const loadUserProgress = async () => {
+    try {
+      const progress = await apiService.getProgress();
+      actions.setProgress(progress);
+    } catch (error) {
+      console.error('Failed to load progress:', error);
+    }
+  };
 
   const achievements = [
     { id: 1, title: 'First Steps', description: 'Complete your first activity', threshold: 1, icon: '🌱' },
@@ -12,10 +26,15 @@ const Progress = () => {
   ];
 
   const getAchievementStatus = (achievement) => {
-    if (achievement.title.includes('points')) {
-      return state.userProgress.points >= achievement.threshold;
-    }
-    return state.userProgress.completedActivities.length >= achievement.threshold;
+    const achievementMap = {
+      'First Steps': 'first-steps',
+      'Eco Warrior': 'eco-warrior', 
+      'SDG Champion': 'sdg-champion',
+      'Planet Protector': 'planet-protector'
+    };
+    
+    const achievementKey = achievementMap[achievement.title];
+    return state.userProgress.achievements && state.userProgress.achievements.includes(achievementKey);
   };
 
   const completedAchievements = achievements.filter(getAchievementStatus);
@@ -24,19 +43,19 @@ const Progress = () => {
   return (
     <div className="bg-gradient-to-br from-purple-50 to-green-50 min-h-screen">
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-primary to-secondary text-white py-16">
-        <div className="max-w-6xl mx-auto px-8 text-center">
-          <h1 className="text-5xl font-bold mb-4">📈 Your Progress</h1>
-          <p className="text-xl opacity-90">Track your journey towards sustainable impact</p>
+      <div className="bg-gradient-to-r from-primary to-secondary text-white py-12 sm:py-16">
+        <div className="max-w-6xl mx-auto px-4 sm:px-8 text-center">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">📈 Your Progress</h1>
+          <p className="text-lg sm:text-xl opacity-90">Track your journey towards sustainable impact</p>
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-8 py-12">
+      <div className="max-w-6xl mx-auto px-4 sm:px-8 py-8 sm:py-12">
         {/* Main Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-          <div className="bg-gradient-to-br from-blue-500 to-blue-600 text-white p-8 rounded-2xl shadow-xl text-center transform hover:scale-105 transition-all">
-            <div className="text-5xl font-bold mb-2">{state.userProgress.points}</div>
-            <div className="text-xl opacity-90">Total Points</div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12 sm:mb-16">
+          <div className="bg-gradient-to-br from-blue-500 to-blue-600 text-white p-6 sm:p-8 rounded-2xl shadow-xl text-center transform hover:scale-105 transition-all">
+            <div className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2">{state.userProgress.points}</div>
+            <div className="text-lg sm:text-xl opacity-90">Total Points</div>
             <div className="mt-4 bg-white/20 rounded-full h-2">
               <div className="bg-white rounded-full h-2" style={{width: `${Math.min(state.userProgress.points / 10, 100)}%`}}></div>
             </div>
@@ -58,9 +77,9 @@ const Progress = () => {
         </div>
 
         {/* Level Progress */}
-        <div className="bg-white p-8 rounded-2xl shadow-lg mb-16">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-gray-800 mb-4">🎆 Progress to Next Level</h2>
+        <div className="bg-white p-4 sm:p-6 lg:p-8 rounded-2xl shadow-lg mb-12 sm:mb-16">
+          <div className="text-center mb-6 sm:mb-8">
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-4">🎆 Progress to Next Level</h2>
             <div className="relative">
               <div className="w-full bg-gray-200 rounded-full h-6 mb-4">
                 <div 
@@ -70,49 +89,49 @@ const Progress = () => {
                   <span className="text-white text-xs font-bold">{Math.round(progressPercentage)}%</span>
                 </div>
               </div>
-              <p className="text-gray-600 text-lg">{state.userProgress.points}/100 points to Planet Protector</p>
+              <p className="text-gray-600 text-base sm:text-lg">{state.userProgress.points}/100 points to Planet Protector</p>
             </div>
           </div>
           
           {/* Level Badges */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
             {[
               { level: 'Beginner', min: 0, icon: '🌱', color: 'bg-green-100 text-green-800' },
               { level: 'Eco Warrior', min: 25, icon: '⚔️', color: 'bg-blue-100 text-blue-800' },
               { level: 'SDG Champion', min: 50, icon: '🏆', color: 'bg-yellow-100 text-yellow-800' },
               { level: 'Planet Protector', min: 100, icon: '🌍', color: 'bg-purple-100 text-purple-800' }
             ].map((badge, index) => (
-              <div key={index} className={`p-4 rounded-lg text-center ${
+              <div key={index} className={`p-3 sm:p-4 rounded-lg text-center ${
                 state.userProgress.points >= badge.min ? badge.color : 'bg-gray-100 text-gray-400'
               }`}>
-                <div className="text-2xl mb-2">{badge.icon}</div>
-                <div className="font-semibold text-sm">{badge.level}</div>
+                <div className="text-xl sm:text-2xl mb-2">{badge.icon}</div>
+                <div className="font-semibold text-xs sm:text-sm">{badge.level}</div>
               </div>
             ))}
           </div>
         </div>
 
         {/* Achievements */}
-        <div className="mb-16">
-          <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">🏅 Achievements</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="mb-12 sm:mb-16">
+          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12 text-gray-800">🏅 Achievements</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
             {achievements.map((achievement, index) => {
               const isUnlocked = getAchievementStatus(achievement);
               return (
                 <div 
                   key={achievement.id} 
-                  className={`p-8 rounded-2xl text-center border-2 transition-all duration-300 transform hover:scale-105 ${
+                  className={`p-4 sm:p-6 lg:p-8 rounded-2xl text-center border-2 transition-all duration-300 transform hover:scale-105 ${
                     isUnlocked 
                       ? 'bg-gradient-to-br from-green-100 to-green-200 border-green-300 shadow-lg' 
                       : 'bg-gray-100 border-gray-300 opacity-60'
                   }`}
                   style={{animationDelay: `${index * 0.1}s`}}
                 >
-                  <div className={`text-6xl mb-4 ${
+                  <div className={`text-4xl sm:text-5xl lg:text-6xl mb-3 sm:mb-4 ${
                     isUnlocked ? 'animate-bounce' : 'grayscale'
                   }`}>{achievement.icon}</div>
-                  <h3 className="font-bold text-lg mb-3 text-gray-800">{achievement.title}</h3>
-                  <p className="text-sm text-gray-600 mb-4 leading-relaxed">{achievement.description}</p>
+                  <h3 className="font-bold text-base sm:text-lg mb-2 sm:mb-3 text-gray-800">{achievement.title}</h3>
+                  <p className="text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4 leading-relaxed">{achievement.description}</p>
                   {isUnlocked ? (
                     <div className="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold">
                       ✓ Unlocked

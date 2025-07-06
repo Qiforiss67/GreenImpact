@@ -1,7 +1,13 @@
 import React from 'react';
+import { useApp } from '../context/AppContext';
 
 const DemoNotice = () => {
-  if (process.env.NODE_ENV !== 'development') return null;
+  const { state } = useApp();
+  
+  // Only show for demo account
+  if (!state.user || state.user.email !== 'demo@example.com') {
+    return null;
+  }
 
   return (
     <div className="bg-yellow-100 border-l-4 border-yellow-500 p-4 mb-4">

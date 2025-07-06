@@ -11,6 +11,13 @@ const UserProgress = () => {
     loadUserData();
   }, []);
 
+  useEffect(() => {
+    // Reload progress when user changes
+    if (state.user) {
+      loadUserData();
+    }
+  }, [state.user]);
+
   const loadUserData = async () => {
     try {
       const progress = await apiService.getProgress();

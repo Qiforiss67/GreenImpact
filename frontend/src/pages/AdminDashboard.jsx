@@ -50,7 +50,8 @@ const AdminDashboard = () => {
 
   const confirmDelete = async () => {
     try {
-      await apiService.deleteActivity(deleteModal.activity.id);
+      const activityId = deleteModal.activity._id || deleteModal.activity.id;
+      await apiService.deleteActivity(activityId);
       loadData();
       setDeleteModal({ isOpen: false, activity: null });
     } catch (error) {
@@ -62,7 +63,8 @@ const AdminDashboard = () => {
     e.preventDefault();
     try {
       if (editingActivity) {
-        await apiService.updateActivity(editingActivity.id, formData);
+        const activityId = editingActivity._id || editingActivity.id;
+        await apiService.updateActivity(activityId, formData);
       } else {
         await apiService.createActivity(formData);
       }
@@ -75,7 +77,14 @@ const AdminDashboard = () => {
 
   const handleEdit = (activity) => {
     setEditingActivity(activity);
-    setFormData(activity);
+    setFormData({
+      title: activity.title,
+      category: activity.category,
+      difficulty: activity.difficulty,
+      points: activity.points,
+      sdg: activity.sdg,
+      description: activity.description
+    });
     setShowForm(true);
   };
 
@@ -87,19 +96,19 @@ const AdminDashboard = () => {
 
   return (
     <div className="bg-gradient-to-br from-purple-50 to-blue-50 min-h-screen">
-      <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white py-16">
-        <div className="max-w-6xl mx-auto px-8 text-center">
-          <h1 className="text-5xl font-bold mb-4">🛡️ Admin Dashboard</h1>
-          <p className="text-xl opacity-90">Manage platform activities and monitor user engagement</p>
+      <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white py-12 sm:py-16">
+        <div className="max-w-6xl mx-auto px-4 sm:px-8 text-center">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">🛡️ Admin Dashboard</h1>
+          <p className="text-lg sm:text-xl opacity-90">Manage platform activities and monitor user engagement</p>
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-8 py-12">
+      <div className="max-w-6xl mx-auto px-4 sm:px-8 py-8 sm:py-12">
         {/* Admin Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
-          <div className="bg-gradient-to-br from-blue-500 to-blue-600 text-white p-6 rounded-2xl shadow-xl text-center">
-            <div className="text-3xl font-bold mb-2">{stats.totalUsers}</div>
-            <div className="text-sm opacity-90">Registered Users</div>
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8 sm:mb-12">
+          <div className="bg-gradient-to-br from-blue-500 to-blue-600 text-white p-4 sm:p-6 rounded-2xl shadow-xl text-center">
+            <div className="text-2xl sm:text-3xl font-bold mb-2">{stats.totalUsers}</div>
+            <div className="text-xs sm:text-sm opacity-90">Registered Users</div>
           </div>
           <div className="bg-gradient-to-br from-green-500 to-green-600 text-white p-6 rounded-2xl shadow-xl text-center">
             <div className="text-3xl font-bold mb-2">{stats.totalActivities}</div>
@@ -116,31 +125,53 @@ const AdminDashboard = () => {
         </div>
 
         {/* Users Management */}
-        <div className="bg-white p-8 rounded-2xl shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">👥 User Management</h2>
-          <div className="overflow-x-auto">
+        <div className="bg-white p-4 sm:p-6 lg:p-8 rounded-2xl shadow-lg mb-8">
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-6">👥 User Management</h2>
+          
+          {/* Mobile Cards */}
+          <div className="block sm:hidden space-y-4">
+            {users.map(user => (
+              <div key={user.id} className="bg-gray-50 p-4 rounded-lg">
+                <div className="font-semibold text-gray-800 mb-2">{user.email}</div>
+                <div className="flex justify-between items-center">
+                  <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
+                    user.role === 'admin' ? 'bg-purple-100 text-purple-800' : 'bg-blue-100 text-blue-800'
+                  }`}>
+                    {user.role}
+                  </span>
+                  <span className="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs font-semibold">
+                    Active
+                  </span>
+                </div>
+                <div className="text-sm text-gray-600 mt-2">Joined: Dec 2024</div>
+              </div>
+            ))}
+          </div>
+          
+          {/* Desktop Table */}
+          <div className="hidden sm:block overflow-x-auto">
             <table className="w-full">
               <thead>
                 <tr className="border-b">
-                  <th className="text-left py-3 px-4">Email</th>
-                  <th className="text-left py-3 px-4">Role</th>
-                  <th className="text-left py-3 px-4">Join Date</th>
-                  <th className="text-left py-3 px-4">Status</th>
+                  <th className="text-left py-3 px-2 lg:px-4 text-sm lg:text-base">Email</th>
+                  <th className="text-left py-3 px-2 lg:px-4 text-sm lg:text-base">Role</th>
+                  <th className="text-left py-3 px-2 lg:px-4 text-sm lg:text-base">Join Date</th>
+                  <th className="text-left py-3 px-2 lg:px-4 text-sm lg:text-base">Status</th>
                 </tr>
               </thead>
               <tbody>
                 {users.map(user => (
                   <tr key={user.id} className="border-b hover:bg-gray-50">
-                    <td className="py-3 px-4">{user.email}</td>
-                    <td className="py-3 px-4">
+                    <td className="py-3 px-2 lg:px-4 text-sm lg:text-base">{user.email}</td>
+                    <td className="py-3 px-2 lg:px-4">
                       <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
                         user.role === 'admin' ? 'bg-purple-100 text-purple-800' : 'bg-blue-100 text-blue-800'
                       }`}>
                         {user.role}
                       </span>
                     </td>
-                    <td className="py-3 px-4">Dec 2024</td>
-                    <td className="py-3 px-4">
+                    <td className="py-3 px-2 lg:px-4 text-sm lg:text-base">Dec 2024</td>
+                    <td className="py-3 px-2 lg:px-4">
                       <span className="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs font-semibold">
                         Active
                       </span>
@@ -153,12 +184,12 @@ const AdminDashboard = () => {
         </div>
 
         {/* Activities Management */}
-        <div className="bg-white p-8 rounded-2xl shadow-lg">
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl font-bold text-gray-800">🎯 Activities Management</h2>
+        <div className="bg-white p-4 sm:p-6 lg:p-8 rounded-2xl shadow-lg">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 gap-4">
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-800">🎯 Activities Management</h2>
             <button 
               onClick={() => setShowForm(true)}
-              className="bg-gradient-to-r from-primary to-secondary text-white px-6 py-3 rounded-full font-semibold hover:shadow-lg transition-all transform hover:scale-105"
+              className="bg-gradient-to-r from-primary to-secondary text-white px-4 sm:px-6 py-2 sm:py-3 rounded-full font-semibold hover:shadow-lg transition-all transform hover:scale-105 text-sm sm:text-base"
             >
               ➕ Create Activity
             </button>
@@ -234,9 +265,9 @@ const AdminDashboard = () => {
             </div>
           )}
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {activities.map(activity => (
-              <div key={activity.id} className="border border-gray-200 p-6 rounded-lg hover:shadow-md transition-shadow">
+              <div key={activity._id || activity.id} className="border border-gray-200 p-4 sm:p-6 rounded-lg hover:shadow-md transition-shadow">
                 <div className="flex justify-between items-start mb-4">
                   <h3 className="font-semibold text-gray-800">{activity.title}</h3>
                   <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">
@@ -251,16 +282,16 @@ const AdminDashboard = () => {
                     <span className="bg-yellow-100 text-yellow-800 px-2 py-1 rounded">⭐ {activity.points}</span>
                   </div>
                 </div>
-                <div className="flex gap-2">
+                <div className="flex flex-col sm:flex-row gap-2">
                   <button
                     onClick={() => handleEdit(activity)}
-                    className="flex-1 bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition-colors text-sm"
+                    className="flex-1 bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition-colors text-xs sm:text-sm"
                   >
                     ✏️ Edit
                   </button>
                   <button
                     onClick={() => handleDeleteActivity(activity)}
-                    className="flex-1 bg-red-500 text-white py-2 rounded hover:bg-red-600 transition-colors text-sm"
+                    className="flex-1 bg-red-500 text-white py-2 rounded hover:bg-red-600 transition-colors text-xs sm:text-sm"
                   >
                     🗑️ Delete
                   </button>

@@ -10,7 +10,17 @@ const Activities = () => {
 
   useEffect(() => {
     loadActivities();
+    loadUserProgress();
   }, [state.filters]);
+
+  const loadUserProgress = async () => {
+    try {
+      const progress = await apiService.getProgress();
+      actions.setProgress(progress);
+    } catch (error) {
+      console.error('Failed to load progress:', error);
+    }
+  };
 
   const loadActivities = async () => {
     try {
@@ -29,34 +39,48 @@ const Activities = () => {
   });
 
   const handleCompleteActivity = (activity) => {
-    if (!state.userProgress.completedActivities.includes(activity.id)) {
+    const activityId = activity._id || activity.id;
+    if (!state.userProgress.completedActivities.includes(activityId)) {
       setCompleteModal({ isOpen: true, activity });
     }
   };
 
   const confirmComplete = async () => {
     try {
-      await apiService.completeActivity(completeModal.activity.id, completeModal.activity.points);
-      actions.addActivity(completeModal.activity);
+      const activityId = completeModal.activity._id || completeModal.activity.id;
+      const result = await apiService.completeActivity(activityId, completeModal.activity.points);
+      
+      // Update progress dari response backend
+      if (result.progress) {
+        actions.setProgress(result.progress);
+      } else {
+        // Fallback: reload progress
+        await loadUserProgress();
+      }
+      
       setCompleteModal({ isOpen: false, activity: null });
     } catch (error) {
       console.error('Failed to complete activity:', error);
+      alert('Error completing activity: ' + error.message);
     }
   };
 
-  const isCompleted = (activityId) => state.userProgress.completedActivities.includes(activityId);
+  const isCompleted = (activity) => {
+    const activityId = activity._id || activity.id;
+    return state.userProgress.completedActivities.includes(activityId);
+  };
 
   return (
     <div className="bg-gradient-to-br from-green-50 to-blue-50 min-h-screen">
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-primary to-secondary text-white py-16">
-        <div className="max-w-6xl mx-auto px-8 text-center">
-          <h1 className="text-5xl font-bold mb-4">🎯 SDG Activities</h1>
-          <p className="text-xl opacity-90">Take action and make a difference in the world</p>
+      <div className="bg-gradient-to-r from-primary to-secondary text-white py-12 sm:py-16">
+        <div className="max-w-6xl mx-auto px-4 sm:px-8 text-center">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">🎯 SDG Activities</h1>
+          <p className="text-lg sm:text-xl opacity-90">Take action and make a difference in the world</p>
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-8 py-12">
+      <div className="max-w-6xl mx-auto px-4 sm:px-8 py-8 sm:py-12">
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
           <div className="bg-white p-6 rounded-2xl shadow-lg text-center">
@@ -74,13 +98,13 @@ const Activities = () => {
         </div>
 
         {/* Filters */}
-        <div className="bg-white p-6 rounded-2xl shadow-lg mb-8">
-          <h2 className="text-xl font-bold text-gray-800 mb-4">🔍 Filter Activities</h2>
-          <div className="flex flex-wrap gap-4">
+        <div className="bg-white p-4 sm:p-6 rounded-2xl shadow-lg mb-8">
+          <h2 className="text-lg sm:text-xl font-bold text-gray-800 mb-4">🔍 Filter Activities</h2>
+          <div className="flex flex-col sm:flex-row gap-4">
             <select 
               value={state.filters.category}
               onChange={(e) => actions.setFilters({ category: e.target.value })}
-              className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+              className="w-full sm:w-auto px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-sm sm:text-base"
             >
               <option value="all">All Categories</option>
               <option value="environment">Environment</option>
@@ -92,7 +116,7 @@ const Activities = () => {
             <select 
               value={state.filters.difficulty}
               onChange={(e) => actions.setFilters({ difficulty: e.target.value })}
-              className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+              className="w-full sm:w-auto px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-sm sm:text-base"
             >
               <option value="all">All Difficulties</option>
               <option value="easy">Easy</option>
@@ -103,19 +127,19 @@ const Activities = () => {
         </div>
 
         {/* Activities Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {filteredActivities.map((activity, index) => {
-            const completed = isCompleted(activity.id);
+            const completed = isCompleted(activity);
             return (
               <div 
-                key={activity.id} 
-                className={`bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border-l-4 ${
+                key={activity._id || activity.id} 
+                className={`bg-white p-4 sm:p-6 lg:p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border-l-4 ${
                   completed ? 'border-green-500 bg-green-50' : 'border-blue-500'
                 }`}
                 style={{animationDelay: `${index * 0.1}s`}}
               >
-                <div className="flex justify-between items-start mb-6">
-                  <h3 className="text-xl font-bold text-gray-800">{activity.title}</h3>
+                <div className="flex justify-between items-start mb-4 sm:mb-6">
+                  <h3 className="text-lg sm:text-xl font-bold text-gray-800 pr-2">{activity.title}</h3>
                   <div className="flex flex-col items-end gap-2">
                     <span className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
                       SDG {activity.sdg}
@@ -124,10 +148,10 @@ const Activities = () => {
                   </div>
                 </div>
                 
-                <p className="text-gray-600 mb-6 leading-relaxed">{activity.description}</p>
+                <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6 leading-relaxed">{activity.description}</p>
                 
-                <div className="flex justify-between items-center mb-6">
-                  <div className="flex gap-2 text-sm">
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4 sm:mb-6 gap-2">
+                  <div className="flex flex-wrap gap-2 text-xs sm:text-sm">
                     <span className={`px-3 py-1 rounded-full font-medium ${
                       activity.category === 'environment' ? 'bg-green-100 text-green-800' :
                       activity.category === 'social' ? 'bg-blue-100 text-blue-800' :
@@ -144,7 +168,7 @@ const Activities = () => {
                       {activity.difficulty}
                     </span>
                   </div>
-                  <span className="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full font-bold text-sm">
+                  <span className="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full font-bold text-xs sm:text-sm self-start sm:self-auto">
                     ⭐ {activity.points}
                   </span>
                 </div>
@@ -152,7 +176,7 @@ const Activities = () => {
                 <button 
                   onClick={() => handleCompleteActivity(activity)}
                   disabled={completed}
-                  className={`w-full py-3 rounded-full font-semibold transition-all transform hover:scale-105 ${
+                  className={`w-full py-2 sm:py-3 rounded-full font-semibold transition-all transform hover:scale-105 text-sm sm:text-base ${
                     completed 
                       ? 'bg-green-500 text-white cursor-not-allowed' 
                       : 'bg-gradient-to-r from-primary to-secondary text-white hover:shadow-lg'

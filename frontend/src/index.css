@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Custom animations */
 @keyframes fade-in {
   from {
     opacity: 0;
@@ -13,8 +14,15 @@
   }
 }
 
-.animate-fade-in {
-  animation: fade-in 1s ease-out;
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes float {
@@ -26,13 +34,42 @@
   }
 }
 
+.animate-fade-in {
+  animation: fade-in 1s ease-out;
+}
+
+.animate-fade-in-delay {
+  animation: fade-in 1s ease-out 0.3s both;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.8s ease-out 0.2s both;
+}
+
+.animate-slide-up-delay {
+  animation: slide-up 0.8s ease-out 0.5s both;
+}
+
 .animate-float {
   animation: float 3s ease-in-out infinite;
 }
 
-/* Smooth scrolling */
-html {
-  scroll-behavior: smooth;
+/* Custom gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Custom shadows */
+.shadow-3xl {
+  box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* Smooth transitions */
+* {
+  transition: all 0.3s ease;
 }
 
 /* Custom scrollbar */
@@ -45,10 +82,10 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #2d5a27;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #4a7c59;
+  background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
 }

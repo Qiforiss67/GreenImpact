@@ -26,7 +26,8 @@ function appReducer(state, action) {
     case ACTIVITY_ACTIONS.SET_FILTERS:
       return { ...state, filters: { ...state.filters, ...action.payload } };
     case ACTIVITY_ACTIONS.ADD_ACTIVITY:
-      if (state.userProgress.completedActivities.includes(action.payload.id)) {
+      const activityId = action.payload._id || action.payload.id;
+      if (state.userProgress.completedActivities.includes(activityId)) {
         return state;
       }
       return { 
@@ -34,7 +35,7 @@ function appReducer(state, action) {
         userProgress: {
           ...state.userProgress,
           points: state.userProgress.points + action.payload.points,
-          completedActivities: [...state.userProgress.completedActivities, action.payload.id]
+          completedActivities: [...state.userProgress.completedActivities, activityId]
         }
       };
     case 'SET_ERROR':
