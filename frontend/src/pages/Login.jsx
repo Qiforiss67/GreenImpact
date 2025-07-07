@@ -4,34 +4,40 @@ import { validateEmail, validatePassword, sanitizeInput } from '../utils/validat
 import { checkRateLimit } from '../utils/security';
 import { useApp } from '../context/AppContext';
 import apiService from '../utils/api';
+import LoadingAnimation from '../components/LoadingAnimation';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLogin, setIsLogin] = useState(true);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { actions } = useApp();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setLoading(true);
     
     const cleanEmail = sanitizeInput(email);
     const cleanPassword = sanitizeInput(password);
     
     if (!validateEmail(cleanEmail)) {
       setError('Please enter a valid email address');
+      setLoading(false);
       return;
     }
     
     if (!validatePassword(cleanPassword)) {
       setError('Password must be at least 6 characters');
+      setLoading(false);
       return;
     }
     
     if (!checkRateLimit(cleanEmail)) {
       setError('Too many login attempts. Please try again later.');
+      setLoading(false);
       return;
     }
     
@@ -46,6 +52,8 @@ const Login = () => {
       navigate('/');
     } catch (error) {
       setError(error.message || 'Authentication failed');
+    } finally {
+      setLoading(false);
     }
   };
   
@@ -69,6 +77,10 @@ const Login = () => {
         return errorCode || 'Authentication failed. Please try again.';
     }
   };
+
+  if (loading) {
+    return <LoadingAnimation message={isLogin ? "Signing in..." : "Creating account..."} />;
+  }
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-50 px-4 sm:px-8">

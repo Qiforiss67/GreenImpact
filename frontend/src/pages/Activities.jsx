@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useApp } from '../context/AppContext';
 import apiService from '../utils/api';
 import ConfirmModal from '../components/ConfirmModal';
+import LoadingAnimation from '../components/LoadingAnimation';
 
 const Activities = () => {
   const { state, actions } = useApp();
   const [activities, setActivities] = useState([]);
   const [completeModal, setCompleteModal] = useState({ isOpen: false, activity: null });
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     loadActivities();
@@ -24,11 +26,14 @@ const Activities = () => {
 
   const loadActivities = async () => {
     try {
+      setLoading(true);
       const data = await apiService.getActivities(state.filters);
       setActivities(data);
       actions.setActivities(data);
     } catch (error) {
       console.error('Failed to load activities:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -47,6 +52,7 @@ const Activities = () => {
 
   const confirmComplete = async () => {
     try {
+      setLoading(true);
       const activityId = completeModal.activity._id || completeModal.activity.id;
       const result = await apiService.completeActivity(activityId, completeModal.activity.points);
       
@@ -62,6 +68,8 @@ const Activities = () => {
     } catch (error) {
       console.error('Failed to complete activity:', error);
       alert('Error completing activity: ' + error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -69,6 +77,10 @@ const Activities = () => {
     const activityId = activity._id || activity.id;
     return state.userProgress.completedActivities.includes(activityId);
   };
+
+  if (loading) {
+    return <LoadingAnimation message="Loading activities..." />;
+  }
 
   return (
     <div className="bg-gradient-to-br from-green-50 to-blue-50 min-h-screen">

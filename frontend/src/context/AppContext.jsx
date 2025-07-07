@@ -7,6 +7,7 @@ const AppContext = createContext();
 const initialState = {
   user: JSON.parse(localStorage.getItem('user')) || null,
   loading: false,
+  loadingMessage: 'Loading...',
   error: null,
   activities: [],
   filters: { category: 'all', difficulty: 'all' },
@@ -18,7 +19,7 @@ function appReducer(state, action) {
     case USER_ACTIONS.SET_USER:
       return { ...state, user: action.payload, loading: false, error: null };
     case USER_ACTIONS.SET_LOADING:
-      return { ...state, loading: action.payload };
+      return { ...state, loading: action.payload.loading, loadingMessage: action.payload.message || 'Loading...' };
     case USER_ACTIONS.LOGOUT:
       return { ...initialState, loading: false };
     case ACTIVITY_ACTIONS.SET_ACTIVITIES:
@@ -67,7 +68,7 @@ export function AppProvider({ children }) {
         dispatch({ type: USER_ACTIONS.SET_USER, payload: user });
         localStorage.setItem('user', JSON.stringify(user));
       },
-      setLoading: (loading) => dispatch({ type: USER_ACTIONS.SET_LOADING, payload: loading }),
+      setLoading: (loading, message = 'Loading...') => dispatch({ type: USER_ACTIONS.SET_LOADING, payload: { loading, message } }),
       logout: () => {
         dispatch({ type: USER_ACTIONS.LOGOUT });
         localStorage.removeItem('user');
